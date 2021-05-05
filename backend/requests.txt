@@ -1,1 +1,1 @@
-curl -d '{"id":1, "nombre":"departamento1"}' -H "Content-Type: application/json" -X POST http://localhost:5000/departamentos
+curl -d "nombre=pelota futbol&descripcion=pelota futbol 5&precio=350.50" -H "Content-Type: application/x-www-form-urlencoded" -X POST http://localhost:5000/productos
