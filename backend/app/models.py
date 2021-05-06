@@ -10,3 +10,11 @@ class Producto(Base, ToDict):
   descripcion = Column(String)
   precio = Column(Float)
   stock = Column(Integer)
+
+class Usuario(Base, ToDict):
+  __tablename__ = 'usuarios'
+  id = Column(Integer, primary_key=True)
+  nombre = Column(String)
+  apellido = Column(String)
+  dni = Column(String)
+  #carrito = ?????
