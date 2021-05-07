@@ -11,4 +11,13 @@ engine = create_engine('sqlite:///carrodecompras.sqlite')
 session = sessionmaker()
 session.configure(bind=engine)
 
-from app import routes, models
+@app.route('/crearbd')
+def create_db():
+  Base.metadata.create_all(engine)
+  return 'ok'
+
+from app.controller.producto import producto_api
+from app.controller.usuario import usuario_api
+
+app.register_blueprint(producto_api)
+app.register_blueprint(usuario_api)
