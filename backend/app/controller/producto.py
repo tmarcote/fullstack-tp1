@@ -76,10 +76,19 @@ def patch_producto(id):
     precio = request.form.get('precio')
     prod.precio = precio
 
-  if 'precio' in request.form:
-    precio = request.form.get('precio')
-    prod.precio = precio
-
   s.commit()
 
   return Response(json.dumps(prod.to_dict()), status=200, mimetype='application/json')
+
+@producto_api.route('/productos/<int:id>', methods=['DELETE'])
+def delete_producto(id):
+  s = session()
+  prod = s.query(Producto).filter(Producto.id==id).one()
+
+  if prod == None:
+    return Response('Id de producto incorrecto', status=404)
+
+  s.delete(prod)
+  s.commit()
+
+  return Response('Producto eliminado', 200)

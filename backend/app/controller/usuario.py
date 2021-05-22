@@ -84,3 +84,16 @@ def patch_usuario(id):
   s.commit()
 
   return Response(json.dumps(user.to_dict()), status=200, mimetype='application/json')
+
+@usuario_api.route('/usuarios/<int:id>', methods=['DELETE'])
+def delete_usuario(id):
+  s = session()
+  user = s.query(Usuario).filter(Usuario.id==id).one()
+
+  if user == None:
+    return Response('Id de producto incorrecto', status=404)
+
+  s.delete(user)
+  s.commit()
+
+  return Response('Usuario eliminado', 200)
