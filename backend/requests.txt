@@ -2,6 +2,9 @@
 CREAR
 curl -d "nombre=pelota futbol&descripcion=pelota futbol 5&precio=350.50" -H "Content-Type: application/x-www-form-urlencoded" -X POST http://localhost:5000/productos
 
+
+curl -d "nombre=tomas&apellido=marcote&username=tmarcote&password=123123123&dni=33222111" -H "Content-Type: application/x-www-form-urlencoded" -X POST http://localhost:5000/usuarios
+
 LISTAR
 curl -X GET http://localhost:5000/productos
 curl -X GET http://localhost:5000/productos/1
