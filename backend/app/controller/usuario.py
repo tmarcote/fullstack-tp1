@@ -19,14 +19,11 @@ def create_usuario():
     return Response('Falta nombre', 400)
   if not 'apellido' in request.form:
     return Response('Falta apellido', 400)
-  if not 'dni' in request.form:
-    return Response('Falta dni', 400)
 
   username = request.form.get('username', '')
   password = request.form.get('password', '')
   nombre = request.form.get('nombre', '')
   apellido = request.form.get('apellido', '')
-  dni = request.form.get('dni', '')
 
   if nombre == '':
     return Response('{"mensaje-error":"Nombre vacio"}', status=400, mimetype='application/json')
@@ -36,16 +33,14 @@ def create_usuario():
     return Response('{"mensaje-error":"password vacio"}', status=400, mimetype='application/json')
   if apellido == '':
     return Response('{"mensaje-error":"Apellido vacio"}', status=400, mimetype='application/json')
-  if dni == '':
-    return Response('{"mensaje-error":"DNI vacio"}', status=400, mimetype='application/json')
 
-  user = Usuario(username=username, password=password, nombre=nombre, apellido=apellido, dni=dni)
+  user = Usuario(username=username, password=password, nombre=nombre, apellido=apellido)
 
   s = session()
   s.add(user)
   s.commit()
 
-  return Response('creado', 201)
+  return Response(json.dumps(user.to_dict()), status=200, mimetype='application/json')
 
 
 @usuario_api.route('/usuarios')
@@ -79,6 +74,14 @@ def patch_usuario(id):
   if user == None:
     return Response('Id de usuario incorrecto', status=404)
 
+  if 'username' in request.form:
+    username = request.form.get('username')
+    user.username = username
+
+  if 'password' in request.form:
+    password = request.form.get('password')
+    user.password = password
+
   if 'nombre' in request.form:
     nombre = request.form.get('nombre')
     user.nombre = nombre
@@ -86,10 +89,6 @@ def patch_usuario(id):
   if 'apellido' in request.form:
     apellido = request.form.get('apellido')
     user.apellido = apellido
-
-  if 'dni' in request.form:
-    dni = request.form.get('dni')
-    user.dni = dni
 
   s.commit()
 

@@ -27,9 +27,9 @@ export default function ({ store }) {
   })
 
   Router.beforeEach((to, from, next) => {
-    if (to.path !== '/login' && store.state.user.username === '') {
-      next('/login')
-    }
+    // if (to.path !== '/login' && store.state.user.username === '') {
+    //   next('/login')
+    // }
     next()
   })
 

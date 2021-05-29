@@ -1,5 +1,7 @@
+import { GET_USUARIOS } from './types'
+
 export default {
-  getEdad: function () {
-    return '2021-12-12'
+  [GET_USUARIOS]: function (state) {
+    return state.usuarios
   }
 }

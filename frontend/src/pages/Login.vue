@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import { LOGIN_ACTION } from '../store/user/types'
+import { LOGIN } from '../store/user/types'
 
 export default {
   name: 'PageLogin',
@@ -19,7 +19,7 @@ export default {
   },
   methods: {
     login: function () {
-      this.$store.dispatch(LOGIN_ACTION, {
+      this.$store.dispatch(LOGIN, {
         username: this.username,
         password: this.password
       })
