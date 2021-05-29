@@ -1,9 +1,11 @@
 from flask import Flask
+from flask_cors import CORS
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import create_engine
 
 app = Flask(__name__)
+CORS(app)
 app.debug = True
 
 Base = declarative_base()

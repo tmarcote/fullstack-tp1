@@ -63,7 +63,7 @@ def list_usuarios():
 @usuario_api.route('/usuarios/<int:id>')
 def get_usuario(id):
   s = session()
-  user = s.query(Usuario).filter(Usuario.id==id).one()
+  user = s.query(Usuario).filter(Usuario.id==id).first()
   
   if user != None:
       return Response(json.dumps(user.to_dict()), status=200, mimetype='application/json')
@@ -74,7 +74,7 @@ def get_usuario(id):
 @usuario_api.route('/usuarios/<int:id>', methods=['PATCH'])
 def patch_usuario(id):
   s = session()
-  user = s.query(Usuario).filter(Usuario.id==id).one()
+  user = s.query(Usuario).filter(Usuario.id==id).first()
 
   if user == None:
     return Response('Id de usuario incorrecto', status=404)
@@ -98,7 +98,7 @@ def patch_usuario(id):
 @usuario_api.route('/usuarios/<int:id>', methods=['DELETE'])
 def delete_usuario(id):
   s = session()
-  user = s.query(Usuario).filter(Usuario.id==id).one()
+  user = s.query(Usuario).filter(Usuario.id==id).first()
 
   if user == None:
     return Response('Id de producto incorrecto', status=404)
@@ -107,3 +107,30 @@ def delete_usuario(id):
   s.commit()
 
   return Response('Usuario eliminado', 200)
+
+
+@usuario_api.route('/usuarios/login', methods=['POST'])
+def login():
+
+  print(request.form)
+
+  if not 'username' in request.form:
+    return Response('Falta username', 400)
+  if not 'password' in request.form:
+    return Response('Falta password', 400)
+
+  username = request.form.get('username', '')
+  password = request.form.get('password', '')
+
+  if username == '':
+    return Response('{"mensaje-error":"username vacio"}', status=400, mimetype='application/json')
+  if password == '':
+    return Response('{"mensaje-error":"password vacio"}', status=400, mimetype='application/json')
+
+  s = session()
+  user = s.query(Usuario).filter(Usuario.username==username,Usuario.password==password).first()
+
+  if user == None:
+    return Response('{"mensaje-error":"Credenciales incorrectas."}', status=404, mimetype='application/json')
+
+  return Response(json.dumps(user.to_dict()), status=200, mimetype='application/json')

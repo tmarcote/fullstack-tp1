@@ -48,7 +48,7 @@ def list_productos():
 @producto_api.route('/productos/<int:id>')
 def get_producto(id):
   s = session()
-  prod = s.query(Producto).filter(Producto.id==id).one()
+  prod = s.query(Producto).filter(Producto.id==id).first()
   
   if prod != None:
       return Response(json.dumps(prod.to_dict()), status=200, mimetype='application/json')
@@ -59,7 +59,7 @@ def get_producto(id):
 @producto_api.route('/productos/<int:id>', methods=['PATCH'])
 def patch_producto(id):
   s = session()
-  prod = s.query(Producto).filter(Producto.id==id).one()
+  prod = s.query(Producto).filter(Producto.id==id).first()
 
   if prod == None:
     return Response('Id de producto incorrecto', status=404)
@@ -83,7 +83,7 @@ def patch_producto(id):
 @producto_api.route('/productos/<int:id>', methods=['DELETE'])
 def delete_producto(id):
   s = session()
-  prod = s.query(Producto).filter(Producto.id==id).one()
+  prod = s.query(Producto).filter(Producto.id==id).first()
 
   if prod == None:
     return Response('Id de producto incorrecto', status=404)
