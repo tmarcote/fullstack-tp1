@@ -11,6 +11,10 @@ usuario_api = Blueprint('usuario_api', __name__)
 
 @usuario_api.route('/usuarios', methods=['POST'])
 def create_usuario():
+  if not 'username' in request.form:
+    return Response('Falta username', 400)
+  if not 'password' in request.form:
+    return Response('Falta password', 400)
   if not 'nombre' in request.form:
     return Response('Falta nombre', 400)
   if not 'apellido' in request.form:
@@ -18,18 +22,24 @@ def create_usuario():
   if not 'dni' in request.form:
     return Response('Falta dni', 400)
 
+  username = request.form.get('username', '')
+  password = request.form.get('password', '')
   nombre = request.form.get('nombre', '')
   apellido = request.form.get('apellido', '')
   dni = request.form.get('dni', '')
 
   if nombre == '':
     return Response('{"mensaje-error":"Nombre vacio"}', status=400, mimetype='application/json')
+  if username == '':
+    return Response('{"mensaje-error":"username vacio"}', status=400, mimetype='application/json')
+  if password == '':
+    return Response('{"mensaje-error":"password vacio"}', status=400, mimetype='application/json')
   if apellido == '':
     return Response('{"mensaje-error":"Apellido vacio"}', status=400, mimetype='application/json')
   if dni == '':
     return Response('{"mensaje-error":"DNI vacio"}', status=400, mimetype='application/json')
 
-  user = Usuario(nombre=nombre, apellido=apellido, dni=dni)
+  user = Usuario(username=username, password=password, nombre=nombre, apellido=apellido, dni=dni)
 
   s = session()
   s.add(user)
