@@ -1,5 +1,7 @@
+import { GET_PRODUCTOS } from './types'
+
 export default {
-  getCantidadProductos: function () {
-    return 2021
+  [GET_PRODUCTOS]: function (state) {
+    return state.productos
   }
 }

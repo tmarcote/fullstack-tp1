@@ -57,6 +57,12 @@ const linksData = [
     caption: 'Administrar usuarios',
     icon: 'supervisor_account',
     link: '/#/usuarios'
+  },
+  {
+    title: 'Productos',
+    caption: 'Administrar productos',
+    icon: 'add_shopping_cart',
+    link: '/#/productos'
   }
 ]
 

@@ -10,3 +10,4 @@ class Producto(Base, ToDict):
   descripcion = Column(String)
   precio = Column(Float)
   stock = Column(Integer)
+  ventas = Column(Integer)

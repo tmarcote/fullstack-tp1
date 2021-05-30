@@ -13,24 +13,31 @@ producto_api = Blueprint('producto_api', __name__)
 def create_producto():
   if not 'nombre' in request.form:
     return Response('Falta nombre', 400)
+  if not 'descripcion' in request.form:
+    return Response('Falta descripcion', 400)
   if not 'precio' in request.form:
     return Response('Falta precio', 400)
+  if not 'stock' in request.form:
+    return Response('Falta stock', 400)
 
   nombre = request.form.get('nombre', '')
   descripcion = request.form.get('descripcion', '')
   precio = request.form.get('precio', 0.0)
   stock = request.form.get('stock', 0)
+  ventas = 0
 
   if nombre == '':
     return Response('{"mensaje-error":"Nombre vacio"}', status=400, mimetype='application/json')
+  if descripcion == '':
+    return Response('{"mensaje-error":"Descripcion vacio"}', status=400, mimetype='application/json')
 
-  prod = Producto(nombre=nombre, descripcion=descripcion, precio=precio, stock=stock)
+  prod = Producto(nombre=nombre, descripcion=descripcion, precio=precio, stock=stock, ventas=ventas)
 
   s = session()
   s.add(prod)
   s.commit()
 
-  return Response('creado', 201)
+  return Response(json.dumps(prod.to_dict()), status=200, mimetype='application/json')
 
 
 @producto_api.route('/productos')
@@ -76,6 +83,10 @@ def patch_producto(id):
     precio = request.form.get('precio')
     prod.precio = precio
 
+  if 'stock' in request.form:
+    stock = request.form.get('stock')
+    prod.stock = stock
+
   s.commit()
 
   return Response(json.dumps(prod.to_dict()), status=200, mimetype='application/json')
@@ -92,3 +103,25 @@ def delete_producto(id):
   s.commit()
 
   return Response('Producto eliminado', 200)
+
+
+@producto_api.route('/productos/venta', methods=['POST'])
+def venta():
+  prods = request.json
+
+  for p in prods :
+    if not(('id' in p) and ('cantidad' in p)):
+      return Response('Request incompleto', status=400)
+
+  s = session()
+
+  for p in prods :
+    if (('id' in p) and ('cantidad' in p)):
+      prod = s.query(Producto).filter(Producto.id==p['id']).first()
+
+      prod.stock = prod.stock - p['cantidad']
+      prod.ventas = prod.ventas + p['cantidad']
+
+      s.commit()
+
+  return Response('Venta exitosa.', 200)
