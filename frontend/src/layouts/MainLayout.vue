@@ -63,6 +63,12 @@ const linksData = [
     caption: 'Administrar productos',
     icon: 'add_shopping_cart',
     link: '/#/productos'
+  },
+  {
+    title: 'Reporte de Ventas',
+    caption: 'Reporte de Ventas',
+    icon: 'analytics',
+    link: '/#/reportes/ventas'
   }
 ]
 

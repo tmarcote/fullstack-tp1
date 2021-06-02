@@ -1,5 +1,6 @@
 from flask import Blueprint, request, json, Response
 from sqlalchemy.orm import relationship, backref, joinedload
+from sqlalchemy import desc
 
 from app import Base, engine, session
 from app.models.producto import Producto
@@ -125,3 +126,14 @@ def venta():
       s.commit()
 
   return Response('Venta exitosa.', 200)
+
+@producto_api.route('/productos/ventas')
+def list_productos_ventas():
+  s = session()
+  prods = s.query(Producto).order_by(desc(Producto.ventas))
+
+  print(prods)
+  for p in prods:
+    print(p.nombre)
+
+  return Response(json.dumps([p.to_dict() for p in prods]), status=200, mimetype='application/json')
