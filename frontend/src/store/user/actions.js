@@ -41,6 +41,7 @@ export default {
     formData.append('password', data.password)
     formData.append('nombre', data.nombre)
     formData.append('apellido', data.apellido)
+    formData.append('rol', data.rol)
 
     return api.post('/usuarios', formData, {
       headers: {
@@ -73,6 +74,7 @@ export default {
     formData.append('password', data.password)
     formData.append('nombre', data.nombre)
     formData.append('apellido', data.apellido)
+    formData.append('rol', data.rol)
 
     return api.patch(`/usuarios/${data.id}`, formData, {
       headers: {

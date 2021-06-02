@@ -4,6 +4,7 @@ export default {
   [LOGIN]: function (state, data) {
     state.username = data.username
     state.id = data.id
+    state.rol = data.rol
     this.$router.push('/')
   },
   [GET_USUARIOS]: function (state, data) {

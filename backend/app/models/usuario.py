@@ -10,5 +10,5 @@ class Usuario(Base, ToDict):
   password = Column(String)
   nombre = Column(String)
   apellido = Column(String)
-  dni = Column(String)
+  rol = Column(String)
   #carrito = ?????

@@ -20,7 +20,8 @@
                   <q-input v-model="editedItem.username" label="Username" class="q-mr-sm"></q-input>
                   <q-input type="password" v-model="editedItem.password" label="Password" class="q-mr-sm"></q-input>
                   <q-input v-model="editedItem.nombre" label="Nombre" class="q-mr-sm"></q-input>
-                  <q-input v-model="editedItem.apellido" label="apellido" class="q-mr-sm"></q-input>
+                  <q-input v-model="editedItem.apellido" label="Apellido" class="q-mr-sm"></q-input>
+                  <q-select v-model="editedItem.rol" :options="roles" class="q-mr-md" label="Rol" required />
                 </div>
               </q-card-section>
               <q-card-actions align="right">
@@ -62,13 +63,15 @@ export default {
   name: 'PageUsuarios',
   data: function () {
     return {
+      roles: ['user', 'admin'],
       modal_usuario: false,
       editedItem: {
         id: -1,
         username: '',
         password: '',
         nombre: '',
-        apellido: ''
+        apellido: '',
+        rol: 'user'
       },
       columns: [
         {
@@ -83,6 +86,7 @@ export default {
         { name: 'username', align: 'center', label: 'Username', field: 'username', sortable: false },
         { name: 'nombre', align: 'center', label: 'Nombre', field: 'nombre', sortable: false },
         { name: 'apellido', align: 'center', label: 'Apellido', field: 'apellido', sortable: false },
+        { name: 'rol', align: 'center', label: 'Rol', field: 'rol', sortable: false },
         { name: 'acciones', label: 'Acciones', field: 'acciones' }
       ]
     }
@@ -99,7 +103,8 @@ export default {
         username: '',
         password: '',
         nombre: '',
-        apellido: ''
+        apellido: '',
+        rol: 'user'
       }
       this.modal_usuario = true
     },

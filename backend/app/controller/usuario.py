@@ -19,11 +19,14 @@ def create_usuario():
     return Response('Falta nombre', 400)
   if not 'apellido' in request.form:
     return Response('Falta apellido', 400)
+  if not 'rol' in request.form:
+    return Response('Falta rol', 400)
 
   username = request.form.get('username', '')
   password = request.form.get('password', '')
   nombre = request.form.get('nombre', '')
   apellido = request.form.get('apellido', '')
+  rol = request.form.get('rol', '')
 
   if nombre == '':
     return Response('{"mensaje-error":"Nombre vacio"}', status=400, mimetype='application/json')
@@ -33,8 +36,10 @@ def create_usuario():
     return Response('{"mensaje-error":"password vacio"}', status=400, mimetype='application/json')
   if apellido == '':
     return Response('{"mensaje-error":"Apellido vacio"}', status=400, mimetype='application/json')
+  if (rol != 'admin' and rol != 'user'):
+    return Response('{"mensaje-error":"Rol invalido"}', status=400, mimetype='application/json')
 
-  user = Usuario(username=username, password=password, nombre=nombre, apellido=apellido)
+  user = Usuario(username=username, password=password, nombre=nombre, apellido=apellido, rol=rol)
 
   s = session()
   s.add(user)
@@ -89,6 +94,10 @@ def patch_usuario(id):
   if 'apellido' in request.form:
     apellido = request.form.get('apellido')
     user.apellido = apellido
+
+  if 'rol' in request.form:
+    rol = request.form.get('rol')
+    user.rol = rol
 
   s.commit()
 
