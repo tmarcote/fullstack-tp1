@@ -32,6 +32,7 @@ export default {
       })
       .catch(err => {
         console.log(err)
+        alert('Error al agregar producto.')
       })
   },
   [DELETE_PRODUCTO]: function ({ commit }, id) {
@@ -43,6 +44,7 @@ export default {
       })
       .catch(err => {
         console.log(err)
+        alert('Error al eliminar producto.')
       })
   },
   [EDIT_PRODUCTO]: function ({ commit }, data) {
@@ -64,6 +66,7 @@ export default {
       })
       .catch(err => {
         console.log(err)
+        alert('Error al editar producto.')
       })
   },
   testVenta: function ({ commit }) {

@@ -30,6 +30,10 @@ export default function ({ store }) {
     if (to.path !== '/login' && store.state.user.username === '') {
       next('/login')
     }
+
+    if (to.path.includes('/admin') && store.state.user.rol !== 'admin') {
+      next('/')
+    }
     next()
   })
 

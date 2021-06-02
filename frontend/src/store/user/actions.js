@@ -55,6 +55,7 @@ export default {
       })
       .catch(err => {
         console.log(err)
+        alert('Error al agregar usuario.')
       })
   },
   [DELETE_USUARIO]: function ({ commit }, id) {
@@ -66,6 +67,7 @@ export default {
       })
       .catch(err => {
         console.log(err)
+        alert('Error al eliminar usuario.')
       })
   },
   [EDIT_USUARIO]: function ({ commit }, data) {
@@ -88,6 +90,7 @@ export default {
       })
       .catch(err => {
         console.log(err)
+        alert('Error al editar usuario.')
       })
   }
 }

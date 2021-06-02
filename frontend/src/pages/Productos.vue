@@ -8,7 +8,7 @@
         row-key="id"
       >
         <template v-slot:top>
-          <q-btn color="primary" label="Agregar Usuario" @click="agregarProducto"></q-btn>
+          <q-btn color="primary" label="Agregar Producto" @click="agregarProducto"></q-btn>
           <q-dialog v-model="modal_producto">
             <q-card>
               <q-card-section>

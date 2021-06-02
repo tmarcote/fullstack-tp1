@@ -5,7 +5,12 @@ export default {
     state.username = data.username
     state.id = data.id
     state.rol = data.rol
-    this.$router.push('/')
+
+    if (state.rol === 'admin') {
+      this.$router.push('/admin')
+    } else {
+      this.$router.push('/')
+    }
   },
   [GET_USUARIOS]: function (state, data) {
     state.usuarios = data

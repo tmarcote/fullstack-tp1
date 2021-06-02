@@ -53,22 +53,10 @@ import EssentialLink from 'components/EssentialLink.vue'
 
 const linksData = [
   {
-    title: 'Usuarios',
-    caption: 'Administrar usuarios',
-    icon: 'supervisor_account',
-    link: '/#/usuarios'
-  },
-  {
-    title: 'Productos',
-    caption: 'Administrar productos',
-    icon: 'add_shopping_cart',
-    link: '/#/productos'
-  },
-  {
-    title: 'Reporte de Ventas',
-    caption: 'Reporte de Ventas',
-    icon: 'analytics',
-    link: '/#/reportes/ventas'
+    title: 'Tienda',
+    caption: 'Tienda',
+    icon: 'shopping_cart',
+    link: '/#/'
   }
 ]
 
