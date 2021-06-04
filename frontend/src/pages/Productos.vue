@@ -9,23 +9,24 @@
       >
         <template v-slot:top>
           <q-btn color="primary" label="Agregar Producto" @click="agregarProducto"></q-btn>
-          <q-dialog v-model="modal_producto">
+          <q-dialog ref="modalProducto" v-model="modal_producto">
             <q-card>
               <q-card-section>
                 <div class="text-h6">Agregar producto</div>
               </q-card-section>
-
-              <q-card-section>
-                <div class="row">
-                  <q-input v-model="editedItem.nombre" label="Nombre" class="q-mr-sm"></q-input>
-                  <q-input v-model="editedItem.descripcion" label="Descripcion" class="q-mr-sm"></q-input>
-                  <q-input v-model="editedItem.precio" label="Precio" type="number" class="q-mr-sm"></q-input>
-                  <q-input v-model="editedItem.stock" label="Stock" type="number" class="q-mr-sm"></q-input>
-                </div>
-              </q-card-section>
-              <q-card-actions align="right">
-                <q-btn flat label="OK" color="primary" v-close-popup @click="submitProducto" ></q-btn>
-              </q-card-actions>
+              <form @submit.prevent.stop="submitProducto">
+                <q-card-section>
+                  <div class="row">
+                    <q-input ref="nombre" v-model="editedItem.nombre" label="Nombre" class="q-mr-sm" lazy-rule :rules="[val => !!val || 'Field is required']"></q-input>
+                    <q-input ref="descripcion" v-model="editedItem.descripcion" label="Descripcion" class="q-mr-sm"></q-input>
+                    <q-input ref="precio" v-model="editedItem.precio" label="Precio" type="number" class="q-mr-sm" lazy-rule :rules="[val => !!val || 'Field is required']"></q-input>
+                    <q-input ref="stock" v-model="editedItem.stock" label="Stock" type="number" class="q-mr-sm" lazy-rule :rules="[val => !!val || 'Field is required']"></q-input>
+                  </div>
+                </q-card-section>
+                <q-card-actions align="right">
+                  <q-btn flat label="OK" color="primary" type="submit"></q-btn>
+                </q-card-actions>
+              </form>
             </q-card>
           </q-dialog>
         </template>
@@ -109,6 +110,16 @@ export default {
       this.modal_usuario = true
     },
     submitProducto: function () {
+      this.$refs.nombre.validate()
+      this.$refs.precio.validate()
+      this.$refs.stock.validate()
+
+      if (this.$refs.nombre.hasError || this.$refs.precio.hasError || this.$refs.stock.hasError) {
+        return
+      }
+
+      this.$refs.modalProducto.hide()
+
       if (this.editedItem.id === -1) {
         this.$store.dispatch(ADD_PRODUCTO, this.editedItem)
       } else {

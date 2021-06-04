@@ -9,24 +9,25 @@
       >
         <template v-slot:top>
           <q-btn color="primary" label="Agregar Usuario" @click="agregarUsuario"></q-btn>
-          <q-dialog v-model="modal_usuario">
+          <q-dialog ref="modalUsuario" v-model="modal_usuario">
             <q-card>
               <q-card-section>
                 <div class="text-h6">Agregar usuario</div>
               </q-card-section>
-
-              <q-card-section>
-                <div class="row">
-                  <q-input v-model="editedItem.username" label="Username" class="q-mr-sm"></q-input>
-                  <q-input type="password" v-model="editedItem.password" label="Password" class="q-mr-sm"></q-input>
-                  <q-input v-model="editedItem.nombre" label="Nombre" class="q-mr-sm"></q-input>
-                  <q-input v-model="editedItem.apellido" label="Apellido" class="q-mr-sm"></q-input>
-                  <q-select v-model="editedItem.rol" :options="roles" class="q-mr-md" label="Rol" required />
-                </div>
-              </q-card-section>
-              <q-card-actions align="right">
-                <q-btn flat label="OK" color="primary" v-close-popup @click="submitUsuario" ></q-btn>
-              </q-card-actions>
+              <form @submit.prevent.stop="submitUsuario">
+                <q-card-section>
+                  <div class="row">
+                    <q-input v-model="editedItem.username" ref="username" label="Username" class="q-mr-sm" lazy-rule :rules="[val => !!val || 'Field is required']"></q-input>
+                    <q-input type="password" v-model="editedItem.password" ref="password" label="Password" lazy-rule class="q-mr-sm" :rules="[val => !!val || 'Field is required']"></q-input>
+                    <q-input v-model="editedItem.nombre" ref="nombre" label="Nombre" class="q-mr-sm" lazy-rule :rules="[val => !!val || 'Field is required']"></q-input>
+                    <q-input v-model="editedItem.apellido" ref="apellido" label="Apellido" class="q-mr-sm" lazy-rule :rules="[val => !!val || 'Field is required']"></q-input>
+                    <q-select v-model="editedItem.rol" ref="rol" :options="roles" class="q-mr-md" label="Rol" lazy-rule :rules="[val => !!val || 'Field is required']" />
+                  </div>
+                </q-card-section>
+                <q-card-actions align="right">
+                  <q-btn flat label="OK" color="primary" type="submit"></q-btn>
+                </q-card-actions>
+              </form>
             </q-card>
           </q-dialog>
         </template>
@@ -113,6 +114,18 @@ export default {
       this.modal_usuario = true
     },
     submitUsuario: function () {
+      this.$refs.username.validate()
+      this.$refs.password.validate()
+      this.$refs.nombre.validate()
+      this.$refs.apellido.validate()
+      this.$refs.rol.validate()
+
+      if (this.$refs.username.hasError || this.$refs.password.hasError || this.$refs.nombre.hasError || this.$refs.apellido.hasError || this.$refs.rol.hasError) {
+        return
+      }
+
+      this.$refs.modalUsuario.hide()
+
       if (this.editedItem.id === -1) {
         this.$store.dispatch(ADD_USUARIO, this.editedItem)
       } else {
