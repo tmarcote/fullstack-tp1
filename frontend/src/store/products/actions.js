@@ -2,72 +2,68 @@ import { GET_PRODUCTOS, ADD_PRODUCTO, DELETE_PRODUCTO, EDIT_PRODUCTO } from './t
 import { api } from '../../boot/axios'
 
 export default {
-  [GET_PRODUCTOS]: function ({ commit }) {
-    return api.get('/productos')
-      .then(response => {
-        if (response.status === 200) {
-          commit(GET_PRODUCTOS, response.data)
-        }
-      })
-      .catch(err => {
-        console.log(err)
-      })
+  [GET_PRODUCTOS]: async function ({ commit }) {
+    try {
+      const response = await api.get('/productos')
+      if (response.status === 200) {
+        commit(GET_PRODUCTOS, response.data)
+      }
+    } catch (err) {
+      console.log(err)
+    }
   },
-  [ADD_PRODUCTO]: function ({ commit }, data) {
+  [ADD_PRODUCTO]: async function ({ commit }, data) {
     const formData = new FormData()
     formData.append('nombre', data.nombre)
     formData.append('descripcion', data.descripcion)
     formData.append('precio', data.precio)
     formData.append('stock', data.stock)
 
-    return api.post('/productos', formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data'
+    try {
+      const response = await api.post('/productos', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      })
+      if (response.status === 200) {
+        commit(ADD_PRODUCTO, response.data)
       }
-    })
-      .then(response => {
-        if (response.status === 200) {
-          commit(ADD_PRODUCTO, response.data)
-        }
-      })
-      .catch(err => {
-        console.log(err)
-        alert('Error al agregar producto.')
-      })
+    } catch (err) {
+      console.log(err)
+      alert('Error al agregar producto.')
+    }
   },
-  [DELETE_PRODUCTO]: function ({ commit }, id) {
-    return api.delete(`/productos/${id}`)
-      .then(response => {
-        if (response.status === 200) {
-          commit(DELETE_PRODUCTO, id)
-        }
-      })
-      .catch(err => {
-        console.log(err)
-        alert('Error al eliminar producto.')
-      })
+  [DELETE_PRODUCTO]: async function ({ commit }, id) {
+    try {
+      const response = await api.delete(`/productos/${id}`)
+      if (response.status === 200) {
+        commit(DELETE_PRODUCTO, id)
+      }
+    } catch (err) {
+      console.log(err)
+      alert('Error al eliminar producto.')
+    }
   },
-  [EDIT_PRODUCTO]: function ({ commit }, data) {
+  [EDIT_PRODUCTO]: async function ({ commit }, data) {
     const formData = new FormData()
     formData.append('nombre', data.nombre)
     formData.append('descripcion', data.descripcion)
     formData.append('precio', data.precio)
     formData.append('stock', data.stock)
 
-    return api.patch(`/productos/${data.id}`, formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data'
-      }
-    })
-      .then(response => {
-        if (response.status === 200) {
-          commit(EDIT_PRODUCTO, response.data)
+    try {
+      const response = await api.patch(`/productos/${data.id}`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
         }
       })
-      .catch(err => {
-        console.log(err)
-        alert('Error al editar producto.')
-      })
+      if (response.status === 200) {
+        commit(EDIT_PRODUCTO, response.data)
+      }
+    } catch (err) {
+      console.log(err)
+      alert('Error al editar producto.')
+    }
   },
   testVenta: function ({ commit }) {
     let data = [

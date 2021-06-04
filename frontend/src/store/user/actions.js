@@ -2,40 +2,38 @@ import { LOGIN, GET_USUARIOS, ADD_USUARIO, DELETE_USUARIO, EDIT_USUARIO } from '
 import { api } from '../../boot/axios'
 
 export default {
-  [LOGIN]: function ({ commit }, data) {
+  [LOGIN]: async function ({ commit }, data) {
     const formData = new FormData()
     formData.append('username', data.username)
     formData.append('password', data.password)
 
-    return api.post('/usuarios/login', formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data'
-      }
-    })
-      .then(response => {
-        if (response.status === 200) {
-          commit(LOGIN, response.data)
-        } else {
-          alert('Credenciales incorrectas.')
+    try {
+      const response = await api.post('/usuarios/login', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
         }
       })
-      .catch(err => {
-        console.log(err)
+      if (response.status === 200) {
+        commit(LOGIN, response.data)
+      } else {
         alert('Credenciales incorrectas.')
-      })
+      }
+    } catch (err) {
+      console.log(err)
+      alert('Credenciales incorrectas.')
+    }
   },
-  [GET_USUARIOS]: function ({ commit }) {
-    return api.get('/usuarios')
-      .then(response => {
-        if (response.status === 200) {
-          commit(GET_USUARIOS, response.data)
-        }
-      })
-      .catch(err => {
-        console.log(err)
-      })
+  [GET_USUARIOS]: async function ({ commit }) {
+    try {
+      const response = await api.get('/usuarios')
+      if (response.status === 200) {
+        commit(GET_USUARIOS, response.data)
+      }
+    } catch (err) {
+      console.log(err)
+    }
   },
-  [ADD_USUARIO]: function ({ commit }, data) {
+  [ADD_USUARIO]: async function ({ commit }, data) {
     const formData = new FormData()
     formData.append('username', data.username)
     formData.append('password', data.password)
@@ -43,34 +41,32 @@ export default {
     formData.append('apellido', data.apellido)
     formData.append('rol', data.rol)
 
-    return api.post('/usuarios', formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data'
+    try {
+      const response = await api.post('/usuarios', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      })
+      if (response.status === 200) {
+        commit(ADD_USUARIO, response.data)
       }
-    })
-      .then(response => {
-        if (response.status === 200) {
-          commit(ADD_USUARIO, response.data)
-        }
-      })
-      .catch(err => {
-        console.log(err)
-        alert('Error al agregar usuario.')
-      })
+    } catch (err) {
+      console.log(err)
+      alert('Error al agregar usuario.')
+    }
   },
-  [DELETE_USUARIO]: function ({ commit }, id) {
-    return api.delete(`/usuarios/${id}`)
-      .then(response => {
-        if (response.status === 200) {
-          commit(DELETE_USUARIO, id)
-        }
-      })
-      .catch(err => {
-        console.log(err)
-        alert('Error al eliminar usuario.')
-      })
+  [DELETE_USUARIO]: async function ({ commit }, id) {
+    try {
+      const response = await api.delete(`/usuarios/${id}`)
+      if (response.status === 200) {
+        commit(DELETE_USUARIO, id)
+      }
+    } catch (err) {
+      console.log(err)
+      alert('Error al eliminar usuario.')
+    }
   },
-  [EDIT_USUARIO]: function ({ commit }, data) {
+  [EDIT_USUARIO]: async function ({ commit }, data) {
     const formData = new FormData()
     formData.append('username', data.username)
     formData.append('password', data.password)
@@ -78,19 +74,18 @@ export default {
     formData.append('apellido', data.apellido)
     formData.append('rol', data.rol)
 
-    return api.patch(`/usuarios/${data.id}`, formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data'
-      }
-    })
-      .then(response => {
-        if (response.status === 200) {
-          commit(EDIT_USUARIO, response.data)
+    try {
+      const response = await api.patch(`/usuarios/${data.id}`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
         }
       })
-      .catch(err => {
-        console.log(err)
-        alert('Error al editar usuario.')
-      })
+      if (response.status === 200) {
+        commit(EDIT_USUARIO, response.data)
+      }
+    } catch (err) {
+      console.log(err)
+      alert('Error al editar usuario.')
+    }
   }
 }
