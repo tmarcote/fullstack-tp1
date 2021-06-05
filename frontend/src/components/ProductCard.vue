@@ -20,7 +20,7 @@
       <div class= "row mis-actions">
         <div class="col-8 text-h5 q-mt-sm q-mb-xs">$ {{ precio }}</div>
         <div class="col-4 text-h5 q-mt-sm q-mb-xs text-right">
-          <q-btn v-if="stock>0" flat color="primary" icon="add_shopping_cart"></q-btn>
+          <q-btn v-if="stock>0" flat color="primary" icon="add_shopping_cart" @click="addToCart(id)"></q-btn>
           <q-btn v-if="stock<=0"  disabled flat color="primary" icon="add_shopping_cart"></q-btn>
 
         </div>
@@ -30,9 +30,15 @@
 </template>
 
 <script>
+import { ADD_CART } from '../store/checkout/types'
+
 export default {
   name: 'ProductCard',
   props: {
+    id: {
+      type: Number,
+      required: true
+    },
     nombre: {
       type: String,
       required: true
@@ -52,6 +58,19 @@ export default {
     img_url: {
       type: String,
       required: false
+    }
+  },
+  methods: {
+    addToCart: function (id) {
+      const product = {
+        id: this._props.id,
+        nombre: this._props.nombre,
+        precio: this._props.precio
+      }
+
+      this.$store.commit(ADD_CART, product)
+
+      this.$emit('productAdded')
     }
   }
 }

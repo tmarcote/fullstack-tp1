@@ -1,6 +1,5 @@
 export default {
   username: '',
   id: '',
-  rol: '',
-  cart: []
+  rol: ''
 }

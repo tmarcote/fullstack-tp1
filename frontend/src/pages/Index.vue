@@ -6,30 +6,42 @@
         v-for="producto in productos"
         :key="producto.id"
         v-bind="producto"
+        @productAdded="addedAlert = true"
       />
     </div>
+
+    <q-dialog v-model="addedAlert">
+      <q-card>
+        <q-card-section>
+          <div class="text-h6">Producto agregado al carrito</div>
+        </q-card-section>
+        <q-card-actions align="right">
+          <q-btn flat label="OK" color="primary" v-close-popup></q-btn>
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
   </q-page>
 </template>
 
 <script>
-import { GET_PRODUCTOS } from '../store/products/types'
+import { GET_CATALOG } from '../store/checkout/types'
 import ProductCard from '../components/ProductCard.vue'
 
 export default {
   name: 'PageIndex',
   components: { ProductCard },
   data: function () {
-    return {}
+    return {
+      addedAlert: false
+    }
   },
   computed: {
     productos: function () {
-      return this.$store.getters[GET_PRODUCTOS]
+      return this.$store.getters[GET_CATALOG]
     }
   },
-  methods: {
-  },
   mounted: function () {
-    this.$store.dispatch(GET_PRODUCTOS)
+    this.$store.dispatch(GET_CATALOG)
   }
 }
 </script>
