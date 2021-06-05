@@ -15,9 +15,10 @@
           Mi Tienda
         </q-toolbar-title>
 
-        <div>
+        <div class="text-h6 q-pr-md">
           {{ username }}
         </div>
+         <q-btn color="negative" label="Logout" @click="logout"></q-btn>
       </q-toolbar>
     </q-header>
 
@@ -50,6 +51,8 @@
 
 <script>
 import EssentialLink from 'components/EssentialLink.vue'
+import { LOGOUT } from '../store/profile/types'
+import { EMPTY_CART } from '../store/checkout/types'
 
 const linksData = [
   {
@@ -78,6 +81,12 @@ export default {
   computed: {
     username: function () {
       return this.$store.state.profile.username
+    }
+  },
+  methods: {
+    logout: function () {
+      this.$store.commit(LOGOUT)
+      this.$store.commit(EMPTY_CART)
     }
   }
 }

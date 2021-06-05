@@ -1,4 +1,4 @@
-import { PURCHASE, ADD_CART, GET_CATALOG, REMOVE_CART, EDIT_CART } from './types'
+import { PURCHASE, ADD_CART, GET_CATALOG, REMOVE_CART, EDIT_CART, EMPTY_CART } from './types'
 
 const calcularTotal = (cart) => {
   let total = 0
@@ -45,5 +45,9 @@ export default {
     }
 
     state.total = calcularTotal(state.cart)
+  },
+  [EMPTY_CART]: function (state) {
+    state.cart = []
+    state.total = 0
   }
 }

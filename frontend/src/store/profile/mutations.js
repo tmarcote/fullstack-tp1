@@ -1,4 +1,4 @@
-import { LOGIN } from './types'
+import { LOGIN, LOGOUT } from './types'
 
 export default {
   [LOGIN]: function (state, data) {
@@ -11,5 +11,11 @@ export default {
     } else {
       this.$router.push('/')
     }
+  },
+  [LOGOUT]: function (state) {
+    state.username = ''
+    state.id = ''
+    state.rol = ''
+    this.$router.push('/login')
   }
 }
