@@ -55,8 +55,14 @@ const linksData = [
   {
     title: 'Tienda',
     caption: 'Tienda',
-    icon: 'shopping_cart',
+    icon: 'shopping_bag',
     link: '/#/'
+  },
+  {
+    title: 'Cart',
+    caption: 'Cart',
+    icon: 'shopping_cart',
+    link: '/#/cart'
   }
 ]
 

@@ -48,7 +48,7 @@
             no-caps
             flat
             dense
-            @click="eliminaProducto(props.row.id)"
+            @click="eliminarProducto(props.row.id)"
             />
           </q-td>
         </template>
