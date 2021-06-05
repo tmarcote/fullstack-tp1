@@ -21,6 +21,7 @@
                     <q-input ref="descripcion" v-model="editedItem.descripcion" label="Descripcion" class="q-mr-sm"></q-input>
                     <q-input ref="precio" v-model="editedItem.precio" label="Precio" type="number" class="q-mr-sm" lazy-rule :rules="[val => !!val || 'Field is required']"></q-input>
                     <q-input ref="stock" v-model="editedItem.stock" label="Stock" type="number" class="q-mr-sm" lazy-rule :rules="[val => !!val || 'Field is required']"></q-input>
+                    <q-input ref="img_url" v-model="editedItem.img_url" label="Imagen" class="q-mr-sm"></q-input>
                   </div>
                 </q-card-section>
                 <q-card-actions align="right">
@@ -69,7 +70,8 @@ export default {
         nombre: '',
         descripcion: '',
         precio: 0.0,
-        stock: 0
+        stock: 0,
+        img_url: ''
       },
       columns: [
         {
@@ -101,7 +103,8 @@ export default {
         nombre: '',
         descripcion: '',
         precio: 0.0,
-        stock: 0
+        stock: 0,
+        img_url: ''
       }
       this.modal_producto = true
     },

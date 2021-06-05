@@ -26,13 +26,12 @@ def create_producto():
   precio = request.form.get('precio', 0.0)
   stock = request.form.get('stock', 0)
   ventas = 0
+  img_url = request.form.get('img_url', '')
 
   if nombre == '':
     return Response('{"mensaje-error":"Nombre vacio"}', status=400, mimetype='application/json')
-  if descripcion == '':
-    return Response('{"mensaje-error":"Descripcion vacio"}', status=400, mimetype='application/json')
 
-  prod = Producto(nombre=nombre, descripcion=descripcion, precio=precio, stock=stock, ventas=ventas)
+  prod = Producto(nombre=nombre, descripcion=descripcion, precio=precio, stock=stock, ventas=ventas, img_url=img_url)
 
   s = session()
   s.add(prod)
@@ -87,6 +86,10 @@ def patch_producto(id):
   if 'stock' in request.form:
     stock = request.form.get('stock')
     prod.stock = stock
+
+  if 'img_url' in request.form:
+    img_url = request.form.get('img_url')
+    prod.img_url = img_url
 
   s.commit()
 

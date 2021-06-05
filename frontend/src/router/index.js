@@ -27,11 +27,11 @@ export default function ({ store }) {
   })
 
   Router.beforeEach((to, from, next) => {
-    if (to.path !== '/login' && store.state.user.username === '') {
+    if (to.path !== '/login' && store.state.profile.username === '') {
       next('/login')
     }
 
-    if (to.path.includes('/admin') && store.state.user.rol !== 'admin') {
+    if (to.path.includes('/admin') && store.state.profile.rol !== 'admin') {
       next('/')
     }
     next()

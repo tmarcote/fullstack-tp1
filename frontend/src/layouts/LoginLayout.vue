@@ -5,10 +5,6 @@
         <q-toolbar-title>
           Login
         </q-toolbar-title>
-
-        <div>
-          {{ username }}
-        </div>
       </q-toolbar>
     </q-header>
     <q-page-container>
@@ -23,11 +19,6 @@ export default {
   name: 'LoginLayout',
   data () {
     return {}
-  },
-  computed: {
-    username: function () {
-      return this.$store.state.user.username
-    }
   }
 }
 </script>

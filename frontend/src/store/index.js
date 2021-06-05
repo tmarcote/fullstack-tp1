@@ -1,18 +1,20 @@
 import Vuex from 'vuex'
 import Vue from 'vue'
 
-import moduloUser from './user'
-import moduloCheckout from './checkout'
+import users from './users'
 import products from './products'
 import reportes from './reportes'
+import profile from './profile'
+import checkout from './checkout'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   modules: {
-    user: moduloUser,
-    checkout: moduloCheckout,
+    users,
     products,
-    reportes
+    reportes,
+    profile,
+    checkout
   }
 })

@@ -18,6 +18,7 @@ export default {
     formData.append('descripcion', data.descripcion)
     formData.append('precio', data.precio)
     formData.append('stock', data.stock)
+    formData.append('img_url', data.img_url)
 
     try {
       const response = await api.post('/productos', formData, {
@@ -50,6 +51,7 @@ export default {
     formData.append('descripcion', data.descripcion)
     formData.append('precio', data.precio)
     formData.append('stock', data.stock)
+    formData.append('img_url', data.img_url)
 
     try {
       const response = await api.patch(`/productos/${data.id}`, formData, {

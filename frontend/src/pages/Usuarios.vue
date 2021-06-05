@@ -58,7 +58,7 @@
 </template>
 
 <script>
-import { GET_USUARIOS, ADD_USUARIO, DELETE_USUARIO, EDIT_USUARIO } from '../store/user/types'
+import { GET_USUARIOS, ADD_USUARIO, DELETE_USUARIO, EDIT_USUARIO } from '../store/users/types'
 
 export default {
   name: 'PageUsuarios',

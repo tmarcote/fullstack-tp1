@@ -1,32 +1,35 @@
 <template>
-  <q-page class="flex flex-center">
-    <h3>{{ elusuario }}</h3>
-    <q-input v-model="usuario" />
-    <q-btn v-on:click="login">Push me</q-btn>
+  <q-page>
+    <h3 class="text-center">Mi Tienda</h3>
+    <div class="q-pa-md row items-start q-gutter-md">
+      <ProductCard
+        v-for="producto in productos"
+        :key="producto.id"
+        v-bind="producto"
+      />
+    </div>
   </q-page>
 </template>
 
 <script>
-import { LOGIN } from '../store/user/types'
+import { GET_PRODUCTOS } from '../store/products/types'
+import ProductCard from '../components/ProductCard.vue'
 
 export default {
   name: 'PageIndex',
+  components: { ProductCard },
   data: function () {
-    return {
-      usuario: ''
-    }
+    return {}
   },
   computed: {
-    elusuario: function () {
-      return this.$store.state.user.username
+    productos: function () {
+      return this.$store.getters[GET_PRODUCTOS]
     }
   },
   methods: {
-    login: function () {
-      this.$store.commit(LOGIN, {
-        username: this.usuario
-      })
-    }
+  },
+  mounted: function () {
+    this.$store.dispatch(GET_PRODUCTOS)
   }
 }
 </script>

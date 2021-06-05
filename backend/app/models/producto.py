@@ -11,3 +11,4 @@ class Producto(Base, ToDict):
   precio = Column(Float)
   stock = Column(Integer)
   ventas = Column(Integer)
+  img_url = Column(String)

@@ -83,7 +83,7 @@ export default {
   },
   computed: {
     username: function () {
-      return this.$store.state.user.username
+      return this.$store.state.profile.username
     }
   }
 }

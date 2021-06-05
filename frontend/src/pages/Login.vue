@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import { LOGIN } from '../store/user/types'
+import { LOGIN } from '../store/profile/types'
 
 export default {
   name: 'PageLogin',
