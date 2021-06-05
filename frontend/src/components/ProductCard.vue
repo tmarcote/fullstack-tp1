@@ -84,7 +84,7 @@ export default {
         id: this._props.id,
         nombre: this._props.nombre,
         precio: this._props.precio,
-        cantidad: this.cantidad
+        cantidad: parseInt(this.cantidad)
       }
 
       this.$store.commit(ADD_CART, product)

@@ -3,7 +3,7 @@ import { PURCHASE, ADD_CART, GET_CATALOG, REMOVE_CART, EDIT_CART, EMPTY_CART } f
 const calcularTotal = (cart) => {
   let total = 0
   for (const prod of cart) {
-    total += (prod.precio * prod.cantidad)
+    total += (prod.precio * parseInt(prod.cantidad))
   }
   return total
 }
