@@ -20,10 +20,9 @@ export default {
     const index = state.cart.findIndex(el => el.id === data.id)
 
     if (index === -1) {
-      data.cantidad = 1
       state.cart.push(data)
     } else {
-      state.cart[index].cantidad += 1
+      state.cart[index].cantidad += parseInt(data.cantidad)
     }
 
     state.total = calcularTotal(state.cart)

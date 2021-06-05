@@ -16,15 +16,28 @@
 
     <q-separator></q-separator>
 
-    <q-card-actions>
-      <div class= "row mis-actions">
-        <div class="col-8 text-h5 q-mt-sm q-mb-xs">$ {{ precio }}</div>
-        <div class="col-4 text-h5 q-mt-sm q-mb-xs text-right">
-          <q-btn v-if="stock>0" flat color="primary" icon="add_shopping_cart" @click="addToCart(id)"></q-btn>
-          <q-btn v-if="stock<=0"  disabled flat color="primary" icon="add_shopping_cart"></q-btn>
-
+    <q-card-section horizontal>
+      <div class= "row mis-actions q-pa-sm">
+        <div class="col-6 q-mt-sm q-mb-xs">
+          <div class="text-h5">$ {{ precio }}</div>
+        </div>
+        <div class="col-6 q-mt-sm q-mb-xs text-right text-grey">
+          <div class="text-h6">Stock: {{ stock }}</div>
         </div>
       </div>
+    </q-card-section>
+
+    <q-separator></q-separator>
+    <q-card-actions>
+      <form class= "row mis-actions" @submit.prevent.stop="addToCart(id)">
+        <div class="col-8 q-mt-sm q-mb-xs">
+            <q-input ref="cantidad" min=1 :max=stock v-model="cantidad" label="Cantidad" type="number" class="q-mr-sm" lazy-rule :rules="[val => !!val || 'Field is required']"></q-input>
+        </div>
+        <div class="col-4 text-h5 q-mt-sm q-mb-xs text-right">
+          <q-btn v-if="stock>0" flat color="primary" icon="add_shopping_cart" type="submit"></q-btn>
+          <q-btn v-if="stock<=0"  disabled flat color="primary" icon="add_shopping_cart"></q-btn>
+        </div>
+      </form>
     </q-card-actions>
   </q-card>
 </template>
@@ -60,12 +73,18 @@ export default {
       required: false
     }
   },
+  data: function () {
+    return {
+      cantidad: 1
+    }
+  },
   methods: {
     addToCart: function (id) {
       const product = {
         id: this._props.id,
         nombre: this._props.nombre,
-        precio: this._props.precio
+        precio: this._props.precio,
+        cantidad: this.cantidad
       }
 
       this.$store.commit(ADD_CART, product)
