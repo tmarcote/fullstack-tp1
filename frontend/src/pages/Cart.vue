@@ -9,7 +9,7 @@
       >
         <template v-slot:top>
           <div class="text-h6 q-mr-md">Total: $ {{total}}</div>
-          <!-- <q-btn color="primary" label="Comprar" @click="comprar"></q-btn> -->
+          <q-btn color="primary" label="Comprar" @click="comprar"></q-btn>
           <q-dialog ref="modalProducto" v-model="modal_producto">
             <q-card>
               <q-card-section>
@@ -55,7 +55,7 @@
 </template>
 
 <script>
-import { GET_CART, GET_TOTAL, REMOVE_CART, EDIT_CART } from '../store/checkout/types'
+import { GET_CART, GET_TOTAL, REMOVE_CART, EDIT_CART, PURCHASE } from '../store/checkout/types'
 
 export default {
   name: 'PageCart',
@@ -110,6 +110,9 @@ export default {
     },
     eliminarProducto: function (id) {
       this.$store.commit(REMOVE_CART, id)
+    },
+    comprar: function () {
+      this.$store.dispatch(PURCHASE)
     }
   }
 }

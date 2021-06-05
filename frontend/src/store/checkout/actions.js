@@ -1,4 +1,4 @@
-import { PURCHASE, GET_CATALOG } from './types'
+import { PURCHASE, GET_CATALOG, EMPTY_CART } from './types'
 import { api } from '../../boot/axios'
 
 export default {
@@ -21,9 +21,14 @@ export default {
           'Content-Type': 'application/json'
         }
       })
-      console.log(response)
+
+      if (response.status === 200) {
+        commit(EMPTY_CART)
+        this.$router.push('/success')
+      }
     } catch (err) {
       console.log(err)
+      alert('Se produjo un error al procesar la compra.')
     }
   }
 }
