@@ -109,7 +109,7 @@ def delete_producto(id):
   return Response('Producto eliminado', 200)
 
 
-@producto_api.route('/productos/venta', methods=['POST'])
+@producto_api.route('/productos/checkout', methods=['POST'])
 def venta():
   prods = request.json
 

@@ -1,4 +1,4 @@
-import { PURCHASE, GET_CATALOG, EMPTY_CART } from './types'
+import { CHECKOUT, GET_CATALOG, EMPTY_CART } from './types'
 import { api } from '../../boot/axios'
 
 export default {
@@ -12,11 +12,11 @@ export default {
       console.log(err)
     }
   },
-  [PURCHASE]: async function ({ commit, state }) {
+  [CHECKOUT]: async function ({ commit, state }) {
     const data = JSON.stringify(state.cart)
 
     try {
-      const response = await api.post('/productos/venta', data, {
+      const response = await api.post('/productos/checkout', data, {
         headers: {
           'Content-Type': 'application/json'
         }

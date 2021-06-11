@@ -55,7 +55,7 @@
 </template>
 
 <script>
-import { GET_CART, GET_TOTAL, REMOVE_CART, EDIT_CART, PURCHASE } from '../store/checkout/types'
+import { GET_CART, GET_TOTAL, REMOVE_CART, EDIT_CART, CHECKOUT } from '../store/checkout/types'
 
 export default {
   name: 'PageCart',
@@ -112,7 +112,11 @@ export default {
       this.$store.commit(REMOVE_CART, id)
     },
     comprar: function () {
-      this.$store.dispatch(PURCHASE)
+      if (this.cart.length === 0) {
+        alert('No tiene ningún producto en el carro de compras.')
+        return
+      }
+      this.$store.dispatch(CHECKOUT)
     }
   }
 }
