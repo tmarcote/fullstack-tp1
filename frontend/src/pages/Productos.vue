@@ -110,7 +110,7 @@ export default {
     },
     editarProducto: function (item) {
       this.editedItem = Object.assign({}, item)
-      this.modal_usuario = true
+      this.modal_producto = true
     },
     submitProducto: function () {
       this.$refs.nombre.validate()

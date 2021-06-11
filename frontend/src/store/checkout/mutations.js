@@ -42,6 +42,7 @@ export default {
 
     if (index > -1) {
       Object.assign(state.cart[index], data)
+      state.cart[index].cantidad = parseInt(state.cart[index].cantidad)
     }
 
     state.total = calcularTotal(state.cart)
