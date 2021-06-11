@@ -1,4 +1,4 @@
-import { PURCHASE, ADD_CART, GET_CATALOG, REMOVE_CART, EDIT_CART, EMPTY_CART } from './types'
+import { ADD_CART, GET_CATALOG, REMOVE_CART, EDIT_CART, EMPTY_CART } from './types'
 
 const calcularTotal = (cart) => {
   let total = 0
@@ -11,10 +11,6 @@ const calcularTotal = (cart) => {
 export default {
   [GET_CATALOG]: function (state, data) {
     state.productos = data
-  },
-  [PURCHASE]: function (state, data) {
-    state.cart = []
-    this.$router.push('/ventaok')
   },
   [ADD_CART]: function (state, data) {
     const index = state.cart.findIndex(el => el.id === data.id)
