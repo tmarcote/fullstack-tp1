@@ -108,28 +108,6 @@ def delete_producto(id):
 
   return Response('Producto eliminado', 200)
 
-
-@producto_api.route('/productos/checkout', methods=['POST'])
-def venta():
-  prods = request.json
-
-  for p in prods :
-    if not(('id' in p) and ('cantidad' in p)):
-      return Response('Request incompleto', status=400)
-
-  s = session()
-
-  for p in prods :
-    if (('id' in p) and ('cantidad' in p)):
-      prod = s.query(Producto).filter(Producto.id==p['id']).first()
-
-      prod.stock = prod.stock - p['cantidad']
-      prod.ventas = prod.ventas + p['cantidad']
-
-      s.commit()
-
-  return Response('Venta exitosa.', 200)
-
 @producto_api.route('/productos/ventas')
 def list_productos_ventas():
   s = session()

@@ -1,4 +1,5 @@
 import { CHECKOUT, GET_CATALOG, EMPTY_CART } from './types'
+
 import { api } from '../../boot/axios'
 
 export default {
@@ -12,11 +13,17 @@ export default {
       console.log(err)
     }
   },
-  [CHECKOUT]: async function ({ commit, state }) {
-    const data = JSON.stringify(state.cart)
+  [CHECKOUT]: async function ({ commit, state }, userId) {
+    const data = {
+      total: state.total,
+      productos: state.cart,
+      user_id: userId
+    }
 
+    const payload = JSON.stringify(data)
+    console.log(payload)
     try {
-      const response = await api.post('/productos/checkout', data, {
+      const response = await api.post('/checkout', payload, {
         headers: {
           'Content-Type': 'application/json'
         }

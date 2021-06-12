@@ -56,6 +56,7 @@
 
 <script>
 import { GET_CART, GET_TOTAL, REMOVE_CART, EDIT_CART, CHECKOUT } from '../store/checkout/types'
+import { GET_USER_ID } from '../store/profile/types'
 
 export default {
   name: 'PageCart',
@@ -91,6 +92,9 @@ export default {
     },
     total: function () {
       return this.$store.getters[GET_TOTAL]
+    },
+    user_id: function () {
+      return this.$store.getters[GET_USER_ID]
     }
   },
   methods: {
@@ -116,7 +120,7 @@ export default {
         alert('No tiene ningún producto en el carro de compras.')
         return
       }
-      this.$store.dispatch(CHECKOUT)
+      this.$store.dispatch(CHECKOUT, this.user_id)
     }
   }
 }

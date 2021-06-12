@@ -20,6 +20,8 @@ def create_db():
 
 from app.controller.producto import producto_api
 from app.controller.usuario import usuario_api
+from app.controller.checkout import checkout_api
 
 app.register_blueprint(producto_api)
 app.register_blueprint(usuario_api)
+app.register_blueprint(checkout_api)
